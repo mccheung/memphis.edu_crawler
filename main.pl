@@ -62,6 +62,9 @@ while ( my $url = get_no_url() ) {
     next if $link_url =~ /jpg$/;
     next if $link_url =~ /png$/;
     next if $link_url =~ /gif$/;
+    next if $link_url =~ /pdf$/;
+    next if $link_url =~ /js$/;
+    next if $link_url =~ /css$/;
 
     if ( $link_url =~ /memphis\.edu/ ){
       set_urls( $link_url, $txt );
@@ -97,7 +100,7 @@ sub save_article_content {
 sub get_file_name {
   my $url = shift;
   my $url_md5 = md5_hex( $url );
-  my $file = $urls->{ link_text }->{ $url_md5 } || $url_md5;
+  my $file = $url_md5;
 
   $file = join( '', ('./articles/', $file,  '.html') );
   return $file;
