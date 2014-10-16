@@ -11,6 +11,7 @@ use HTML::TreeBuilder;
 use HTML::FormatText;
 
 use Digest::MD5 qw/md5_hex/;
+my $use_proxy = 0;
 
 my $m_url = 'http://memphis.edu';
 my $file = 'status.yaml';
@@ -33,7 +34,7 @@ local $SIG{INT} = sub {
 my $ua = WWW::Mechanize::GZip->new(
   agent => 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10.9; rv:32.0) Gecko/20100101 Firefox/32.0',
 );
-$ua->proxy( ['http', 'https'], 'socks://127.0.0.1:9090' );
+$ua->proxy( ['http', 'https'], 'socks://127.0.0.1:9090' ) if $use_proxy;
 
 while ( my $url = get_no_url() ) {
   print "$url\n";
